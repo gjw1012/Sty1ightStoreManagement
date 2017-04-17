@@ -3,11 +3,12 @@ package jnj.com.sty1ightstoremanagement;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-    public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity {
 
-        @Override
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        // test for github //wodnd23
     }
 }
