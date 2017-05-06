@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Button
+        android:id="@+id/button_all"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="전체" />
+
+    <Button
+        android:id="@+id/button_order"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="주문" />
+
+    <Button
+        android:id="@+id/button_tax_bill"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="세금계산서" />
+
+    <Button
+        android:id="@+id/button_graph"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="그래프" />
+
+    <Button
+        android:id="@+id/button_stock"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="재고" />
+</LinearLayout>
