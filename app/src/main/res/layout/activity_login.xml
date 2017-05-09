@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="1">
+
+    <EditText
+        android:id="@+id/id_input"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_weight="0.02"
+        android:editable="false"
+        android:text="sty1ight_admin" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:id="@+id/password_input"
+        android:hint="Password"
+        android:text="jisoozzang1234"
+        android:inputType="textPassword"
+        android:layout_weight="0.02" />
+
+    <Button
+        android:id="@+id/button_login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Log in"
+        android:textAllCaps="false"/>
+
+    <Button
+        android:id="@+id/button_change_pw"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Change Password"
+        android:textAllCaps="false" />
+
+    <CheckBox
+        android:id="@+id/checkbox_remember_login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.02"
+        android:text="Remember login" />
+
+</LinearLayout>
