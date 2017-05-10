@@ -3,7 +3,6 @@ package jnj.com.sty1ightstoremanagement.account;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -22,6 +21,7 @@ import java.io.PrintWriter;
 
 import jnj.com.sty1ightstoremanagement.MenuActivity;
 import jnj.com.sty1ightstoremanagement.R;
+import jnj.com.sty1ightstoremanagement.dropbox.DropBoxActivity;
 
 /**
  * Created by SJW on 2017-05-07.
@@ -63,12 +63,12 @@ public class LoginActivity extends AppCompatActivity implements CompoundButton.O
 
     private void checkRememberState() {
         if (readLoginDataFromFile("remember").equals("true")) {
-            Log.e("jwoong.song","onCreate, remember == true");
+            Log.e("jwoong.song", "onCreate, remember == true");
             autoLogin.setChecked(true);
             rememberLogin = true;
             passwordInput.setText(readLoginDataFromFile("pw"));
         } else {
-            Log.e("jwoong.song","onCreate, remember == false");
+            Log.e("jwoong.song", "onCreate, remember == false");
             autoLogin.setChecked(false);
             rememberLogin = false;
             passwordInput.setText("");
@@ -82,7 +82,7 @@ public class LoginActivity extends AppCompatActivity implements CompoundButton.O
         if (idInput.getText().toString().equals(id)
                 && passwordInput.getText().toString().equals(password)) {
             //login success
-            editFile(null, null, rememberLogin+"");
+            editFile(null, rememberLogin + "");
 
             Intent intent1 = new Intent(this, MenuActivity.class);
             startActivity(intent1);
@@ -119,43 +119,24 @@ public class LoginActivity extends AppCompatActivity implements CompoundButton.O
         }
     }
 
-    public void makeFile() {
-        String absolutePath = Environment.getExternalStorageDirectory().getAbsolutePath();
-        String newPath = absolutePath + "/sty1ight";
-        File file = new File(newPath, "data.txt");
-        try {
-            FileWriter wr = new FileWriter(file, false);
-            PrintWriter writer = new PrintWriter(wr);
-            writer.println("id:" + idInput.getText());
-            writer.println("pw:" + passwordInput.getText());
-            writer.println("remember:" + false);
-            writer.close();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-
-        }
-    }
-
-    public void editFile(String id, String pw, String remember) {
-        String defaultId = idInput.getText().toString();
+    public void editFile(String pw, String remember) {
         String defaultPw = passwordInput.getText().toString();
-        String defaultRemember = rememberLogin+"";
-        if (id != null) defaultId = id;
+        String defaultRemember = rememberLogin + "";
         if (pw != null) defaultPw = pw;
         if (remember != null) defaultRemember = remember;
 
-        String absolutePath = Environment.getExternalStorageDirectory().getAbsolutePath();
-        String newPath = absolutePath + "/sty1ight";
-        File file = new File(newPath, "data.txt");
+
+        String filePath = LoginActivity.this.getFilesDir().getPath().toString() + "/AccountData.txt";
+        File file = new File(filePath);
 
         try {
             file.createNewFile();
             FileWriter wr = new FileWriter(file, false);
             PrintWriter writer = new PrintWriter(wr);
-            writer.println("id:" + defaultId);
+            writer.println("id:sty1ight_admin");
             writer.println("pw:" + defaultPw);
             writer.println("remember:" + defaultRemember);
+            ((DropBoxActivity) DropBoxActivity.mContext).overwriteLoginData(defaultPw, defaultRemember);
             writer.close();
         } catch (IOException e) {
             // TODO Auto-generated catch block
@@ -164,9 +145,8 @@ public class LoginActivity extends AppCompatActivity implements CompoundButton.O
     }
 
     public String readLoginDataFromFile(String index) {
-        String absolutePath = Environment.getExternalStorageDirectory().getAbsolutePath();
-        String newPath = absolutePath + "/sty1ight";
-        File file = new File(newPath, "data.txt");
+        String filePath = LoginActivity.this.getFilesDir().getPath().toString() + "/AccountData.txt";
+        File file = new File(filePath);
 
         //StringBuffer buffer = new StringBuffer();
         try {

@@ -15,6 +15,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".dropbox.DropBoxActivity" ></activity>
+        <activity android:name=".subactivities.AllActivity" ></activity>
+        <activity android:name=".subactivities.TaxBillActivity" ></activity>
+        <activity android:name=".subactivities.StockActivity" ></activity>
+        <activity android:name=".subactivities.OrderActivity" ></activity>
+        <activity android:name=".subactivities.GraphActivity" ></activity>
+        <activity android:name=".account.ChangePasswordActivity" ></activity>
+        <activity android:name=".account.LoginActivity" ></activity>
+        <activity android:name=".MenuActivity" ></activity>
+
         <activity
             android:name="com.dropbox.client2.android.AuthActivity"
             android:launchMode="singleTask"
@@ -22,7 +32,7 @@
             android:configChanges="orientation|keyboard">
             <intent-filter>
                 <!-- Change this to be db- followed by your app key -->
-                <data android:scheme="db-3ypfwo7vtnfd7t5" />
+                <data android:scheme="db-41y9qa6th3mbvyi" />
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.BROWSABLE"/>
                 <category android:name="android.intent.category.DEFAULT" />
@@ -30,4 +40,6 @@
         </activity>
     </application>
     <uses-permission android:name="android.permission.INTERNET"></uses-permission>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"></uses-permission>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"></uses-permission>
 </manifest>

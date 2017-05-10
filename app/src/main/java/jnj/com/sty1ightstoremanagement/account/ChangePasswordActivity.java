@@ -5,9 +5,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
-import android.view.KeyEvent;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,12 +12,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import jnj.com.sty1ightstoremanagement.R;
+import jnj.com.sty1ightstoremanagement.dropbox.DropBoxActivity;
 
 /**
  * Created by SJW on 2017-05-08.
  */
 
-public class ChangePasswordActivity extends AppCompatActivity implements View.OnClickListener, TextWatcher{
+public class ChangePasswordActivity extends AppCompatActivity implements View.OnClickListener, TextWatcher {
     private EditText oldPassword, newPassword1, newPassword2;
     private TextView checkPassword;
     private Button confirmChange;
@@ -54,8 +52,9 @@ public class ChangePasswordActivity extends AppCompatActivity implements View.On
 
     private void savePassword() {
         if (checkPasswordValidity()) {
-            mLoginActivity.editFile(null, newPassword1.getText().toString(), false + "");
+            mLoginActivity.editFile(newPassword1.getText().toString(), false + "");
             Toast.makeText(this, "Change Password Success", Toast.LENGTH_LONG).show();
+            ((DropBoxActivity) DropBoxActivity.mContext).overwriteLoginData(newPassword1.getText().toString(), false + "");
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
         } else {

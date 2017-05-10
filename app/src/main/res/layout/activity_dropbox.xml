@@ -3,9 +3,16 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/button_dropbox_upload"
+    <TextView
+        android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Upload" />
+        android:text="DropBox Acitivity" />
+
+    <Button
+        android:id="@+id/button_goto_login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Login"
+        android:textAllCaps="false" />
 </LinearLayout>
