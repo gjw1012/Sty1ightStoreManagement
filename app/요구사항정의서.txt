@@ -1,0 +1,56 @@
+public DataManager.class
+{
+        public static mConext;
+        DataMager (){
+              mcontext = this;
+        }
+        DataManager getInstance() {
+		return mContext;
+        }
+	List<Marchandise> a = new CopyOnWriteArrayList
+
+public void addToMarChanList (Marca m){}
+ list . add (,);
+}
+
+Marchandise.class(전체)
+Order.class 
+
+////////////////////////
+
+Account.txt (로그인관리) : 아이디/비번/remember
+
+Marchandise.txt (상품관리) 코드명/상품명/거래처상호/거래처상품명/거래처전화번호/거래처주소/
+/입금계좌번호/사입날짜/컬러/사이즈(Hashmap)/수량/단가/총액/판매량/반품/교환/불량/판매가/원가/마진
+
+
+////////////////////////////
+
+
+Main
+
+oncreate
+Datamanager dm = new Datamanger();
+
+dm.a
+
+3rd.class
+
+DataManager mDataMAnager = DataManager.getInst();
+mDataManager.get()
+
+거래처에 마다 얼만큼 사입하고 얼만큼 부가세를 얼마씩 더 내야할지
+ex) 3만원어치 사입 -> 3만3천 화물비 1000원 -> 3만4천원
+거래처별로 옷가격 x110% + 화물비 총액
+
+재고 코드명/상품명/거래처상품명/컬러/사이즈/수량 (검색도 되게)
+
+ - 주문을 하면 재고가 늘고 배송을 보내면 재고가 줄고
+
+
+
+
+
+
+
+

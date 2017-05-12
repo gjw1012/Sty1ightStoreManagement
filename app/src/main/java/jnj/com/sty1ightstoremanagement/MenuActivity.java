@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
+import jnj.com.sty1ightstoremanagement.appdata.DataManager;
 import jnj.com.sty1ightstoremanagement.subactivities.AllActivity;
 import jnj.com.sty1ightstoremanagement.subactivities.GraphActivity;
 import jnj.com.sty1ightstoremanagement.subactivities.OrderActivity;
