@@ -15,9 +15,6 @@ public class TestClass {
 
     private void test() {
         for (Marchandise m : mDataManager.getList()) {
-            if (m.getCode() == 1) {
-
-            }
         }
     }
 
