@@ -1,5 +1,6 @@
 package jnj.com.sty1ightstoremanagement.account;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -31,6 +32,7 @@ import jnj.com.sty1ightstoremanagement.file.FileManager;
 public class LoginActivity extends AppCompatActivity implements CompoundButton.OnCheckedChangeListener, View.OnClickListener {
     private static final String TAG = "LoginActivity_sty1ight";
     private static LoginActivity sLoginActivity = null;
+    private Context mContext;
 
     EditText idInput, passwordInput;
     CheckBox autoLogin;
@@ -41,6 +43,7 @@ public class LoginActivity extends AppCompatActivity implements CompoundButton.O
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        mContext = MainActivity.sContext;
 
         FileManager.getInstance(MainActivity.sContext).initAccountFile();
 
@@ -76,12 +79,12 @@ public class LoginActivity extends AppCompatActivity implements CompoundButton.O
 
     private void checkRememberState() {
         if (readLoginDataFromFile(Constants.INDEX_REMEMBER).equals("true")) {
-            Log.e("jwoong.song", "onCreate, remember == true");
+            Log.e(TAG, "onCreate, remember == true");
             autoLogin.setChecked(true);
             rememberLogin = true;
             passwordInput.setText(readLoginDataFromFile(Constants.INDEX_PASSWORD));
         } else {
-            Log.e("jwoong.song", "onCreate, remember == false");
+            Log.e(TAG, "onCreate, remember == false");
             autoLogin.setChecked(false);
             rememberLogin = false;
             passwordInput.setText("");

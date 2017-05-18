@@ -24,6 +24,7 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
     private Button taxBillBtn;
     private Button graphBtn;
     private Button stockBtn;
+    private Button settingsBtn;
     // end of global variables
 
     @Override
@@ -41,12 +42,14 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         taxBillBtn = (Button) findViewById(R.id.button_tax_bill);
         graphBtn = (Button) findViewById(R.id.button_graph);
         stockBtn = (Button) findViewById(R.id.button_stock);
+        settingsBtn = (Button) findViewById(R.id.button_settings);
 
         allBtn.setOnClickListener(this);
         orderBtn.setOnClickListener(this);
         taxBillBtn.setOnClickListener(this);
         graphBtn.setOnClickListener(this);
         stockBtn.setOnClickListener(this);
+        settingsBtn.setOnClickListener(this);
     }
 
     @Override
@@ -71,6 +74,10 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.button_stock:
                 intent = new Intent(this, StockActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.button_settings:
+                intent = new Intent(this, SettingsActivity.class);
                 startActivity(intent);
                 break;
         }

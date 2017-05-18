@@ -15,15 +15,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".dropbox.DropBoxActivity" ></activity>
-        <activity android:name=".subactivities.AllActivity" ></activity>
-        <activity android:name=".subactivities.TaxBillActivity" ></activity>
-        <activity android:name=".subactivities.StockActivity" ></activity>
-        <activity android:name=".subactivities.OrderActivity" ></activity>
-        <activity android:name=".subactivities.GraphActivity" ></activity>
-        <activity android:name=".account.ChangePasswordActivity" ></activity>
-        <activity android:name=".account.LoginActivity" ></activity>
-        <activity android:name=".MenuActivity" ></activity>
+        <activity android:name=".dropbox.DropBoxActivity"></activity>
+        <activity android:name=".subactivities.AllActivity"></activity>
+        <activity android:name=".subactivities.TaxBillActivity"></activity>
+        <activity android:name=".subactivities.StockActivity"></activity>
+        <activity android:name=".subactivities.OrderActivity"></activity>
+        <activity android:name=".subactivities.GraphActivity"></activity>
+        <activity android:name=".account.ChangePasswordActivity"></activity>
+        <activity android:name=".account.LoginActivity"></activity>
+        <activity android:name=".MenuActivity"></activity>
+        <activity android:name=".SettingsActivity"></activity>
 
         <activity
             android:name="com.dropbox.client2.android.AuthActivity"

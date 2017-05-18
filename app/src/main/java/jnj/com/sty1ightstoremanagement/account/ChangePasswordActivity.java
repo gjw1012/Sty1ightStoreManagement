@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import jnj.com.sty1ightstoremanagement.Constants;
+import jnj.com.sty1ightstoremanagement.MainActivity;
 import jnj.com.sty1ightstoremanagement.R;
 import jnj.com.sty1ightstoremanagement.dropbox.DropBoxActivity;
 
@@ -55,7 +56,7 @@ public class ChangePasswordActivity extends AppCompatActivity implements View.On
         if (checkPasswordValidity()) {
             mLoginActivity.editFile(newPassword1.getText().toString(), false + "");
             Toast.makeText(this, "Change Password Success", Toast.LENGTH_LONG).show();
-            //((DropBoxActivity) DropBoxActivity.mContext).overwriteLoginData(newPassword1.getText().toString(), false + "");
+            //DropBoxActivity.getInstance().overwriteLoginData(newPassword1.getText().toString(), false + "");
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
             finish();

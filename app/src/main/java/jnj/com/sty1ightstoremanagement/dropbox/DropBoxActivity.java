@@ -17,6 +17,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 
+import jnj.com.sty1ightstoremanagement.MainActivity;
 import jnj.com.sty1ightstoremanagement.R;
 import jnj.com.sty1ightstoremanagement.account.LoginActivity;
 
@@ -26,6 +27,8 @@ import jnj.com.sty1ightstoremanagement.account.LoginActivity;
 
 public class DropBoxActivity extends AppCompatActivity implements View.OnClickListener {
     private Button gotoLoginButton;
+    private final static String TAG = "DropBoxActivity_sty1ight";
+    private static DropBoxActivity sDropBoxActivity = null;
 
     // for DropBox
     final static private String APP_KEY = "41y9qa6th3mbvyi";
@@ -40,12 +43,25 @@ public class DropBoxActivity extends AppCompatActivity implements View.OnClickLi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dropbox);
 
-        mContext = this;
+        mContext = MainActivity.sContext;
 
         gotoLoginButton = (Button) findViewById(R.id.button_goto_login);
         gotoLoginButton.setOnClickListener(this);
 
         AuthorizeDropBox();
+    }
+
+    public DropBoxActivity() {
+        Log.d(TAG, "DropBoxActivity Constructor");
+    }
+
+    public static DropBoxActivity getInstance() {
+        if (sDropBoxActivity == null) {
+            synchronized (DropBoxActivity.class) {
+                sDropBoxActivity = new DropBoxActivity();
+            }
+        }
+        return sDropBoxActivity;
     }
 
     private void AuthorizeDropBox() {
@@ -118,11 +134,11 @@ public class DropBoxActivity extends AppCompatActivity implements View.OnClickLi
             @Override
             public void run() {
                 try {
-                    String filePath = DropBoxActivity.this.getFilesDir().getPath().toString() + "/AccountData.txt";
+                    String filePath = MainActivity.sContext.getFilesDir().getPath().toString() + "/AccountData.txt";
                     File file = new File(filePath);
                     FileOutputStream outputStream = new FileOutputStream(file);
                     DropboxAPI.DropboxFileInfo info = mDBApi.getFile("/AccountData.txt", null, outputStream, null);
-                    Log.i("jwoong.song", "The file's rev is: " + info.getMetadata().rev);
+                    Log.i(TAG, "The file's rev is: " + info.getMetadata().rev);
 
                     Intent intent = new Intent(DropBoxActivity.this, LoginActivity.class);
                     startActivity(intent);
@@ -140,12 +156,10 @@ public class DropBoxActivity extends AppCompatActivity implements View.OnClickLi
             @Override
             public void run() {
                 try {
-                    String filePath = DropBoxActivity.this.getFilesDir().getPath().toString() + "/AccountData.txt";
+                    String filePath = MainActivity.sContext.getFilesDir().getPath().toString() + "/AccountData.txt";
                     File file = new File(filePath);
                     FileWriter writer = new FileWriter(file, false);
-                    writer.append("id:sty1ight_admin\n");
-                    writer.append("pw:" + pw + "\n");
-                    writer.append("remember:" + remember + "\n");
+                    writer.append("sty1ight_admin:" + pw + ":" + remember);
                     writer.flush();
                     writer.close();
                     FileInputStream inputStream;
@@ -153,7 +167,7 @@ public class DropBoxActivity extends AppCompatActivity implements View.OnClickLi
                     //DropboxAPI.Entry response = mDBApi.putFile("/User.txt", inputStream, file.length(), null, null);
                     DropboxAPI.Entry response = mDBApi.putFileOverwrite("/AccountData.txt", inputStream, file.length(), null);
 
-                    Log.i("jwoong.song", "The uploaded file's rev is: " + response.rev);
+                    Log.i(TAG, "The uploaded file's rev is: " + response.rev);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
