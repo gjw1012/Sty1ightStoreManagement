@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import jnj.com.sty1ightstoremanagement.Constants;
 import jnj.com.sty1ightstoremanagement.R;
 import jnj.com.sty1ightstoremanagement.dropbox.DropBoxActivity;
 
@@ -44,7 +45,7 @@ public class ChangePasswordActivity extends AppCompatActivity implements View.On
     }
 
     private boolean checkPasswordValidity() {
-        return mLoginActivity.readLoginDataFromFile("pw").equals(oldPassword.getText().toString())
+        return mLoginActivity.readLoginDataFromFile(Constants.INDEX_PASSWORD).equals(oldPassword.getText().toString())
                 && newPassword1.getText().toString().equals(newPassword2.getText().toString())
                 && newPassword1.getText().toString().length() > 5;
 
@@ -54,17 +55,17 @@ public class ChangePasswordActivity extends AppCompatActivity implements View.On
         if (checkPasswordValidity()) {
             mLoginActivity.editFile(newPassword1.getText().toString(), false + "");
             Toast.makeText(this, "Change Password Success", Toast.LENGTH_LONG).show();
-            ((DropBoxActivity) DropBoxActivity.mContext).overwriteLoginData(newPassword1.getText().toString(), false + "");
+            //((DropBoxActivity) DropBoxActivity.mContext).overwriteLoginData(newPassword1.getText().toString(), false + "");
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
+            finish();
         } else {
             Toast.makeText(this, "Change Password Failed", Toast.LENGTH_LONG).show();
         }
     }
 
     private void checkOnKeyDown() {
-        if (!mLoginActivity.readLoginDataFromFile("pw").equals(oldPassword.getText().toString())) {
-
+        if (!mLoginActivity.readLoginDataFromFile(Constants.INDEX_PASSWORD).equals(oldPassword.getText().toString())) {
             checkPassword.setText("비밀번호가 틀렸습니다");
         } else if (newPassword1.getText().toString().length() < 5) {
             checkPassword.setText("새 비밀번호가 너무 짧습니다");
@@ -73,7 +74,6 @@ public class ChangePasswordActivity extends AppCompatActivity implements View.On
         } else {
             checkPassword.setText("변경 가능");
         }
-
     }
 
     @Override

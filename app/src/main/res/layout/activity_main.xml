@@ -10,10 +10,10 @@
         android:text="Sty1ight Store Management"/>
 
     <Button
-        android:id="@+id/button_dropbox"
+        android:id="@+id/button_login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="DropBox"
+        android:text="Login"
         android:textAllCaps="false" />
 
 </LinearLayout>

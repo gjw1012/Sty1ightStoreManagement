@@ -25,4 +25,7 @@ public class TestClass {
     public void test() {
         DataManager.getInstance().getList();
     }
+
 }
+
+

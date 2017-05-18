@@ -2,14 +2,12 @@ package jnj.com.sty1ightstoremanagement;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Messenger;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import jnj.com.sty1ightstoremanagement.appdata.DataManager;
-import jnj.com.sty1ightstoremanagement.dropbox.DropBoxActivity;
+import jnj.com.sty1ightstoremanagement.account.LoginActivity;
 
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -23,17 +21,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
         sContext = getApplicationContext();
 
-        dropboxButton = (Button) findViewById(R.id.button_dropbox);
+        dropboxButton = (Button) findViewById(R.id.button_login);
         dropboxButton.setOnClickListener(this);
-
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.button_dropbox:
-                Intent intent1 = new Intent(this, DropBoxActivity.class);
-                startActivity(intent1);
+            case R.id.button_login:
+                Intent intent = new Intent(this, LoginActivity.class);
+                startActivity(intent);
+                finish();
                 break;
         }
     }

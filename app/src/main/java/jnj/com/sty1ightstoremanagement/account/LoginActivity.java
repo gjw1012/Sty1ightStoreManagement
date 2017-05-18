@@ -1,6 +1,5 @@
 package jnj.com.sty1ightstoremanagement.account;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -19,35 +18,49 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import jnj.com.sty1ightstoremanagement.Constants;
+import jnj.com.sty1ightstoremanagement.MainActivity;
 import jnj.com.sty1ightstoremanagement.MenuActivity;
 import jnj.com.sty1ightstoremanagement.R;
-import jnj.com.sty1ightstoremanagement.dropbox.DropBoxActivity;
+import jnj.com.sty1ightstoremanagement.file.FileManager;
 
 /**
  * Created by SJW on 2017-05-07.
  */
 
 public class LoginActivity extends AppCompatActivity implements CompoundButton.OnCheckedChangeListener, View.OnClickListener {
+    private static final String TAG = "LoginActivity_sty1ight";
+    private static LoginActivity sLoginActivity = null;
+
     EditText idInput, passwordInput;
     CheckBox autoLogin;
     Button loginButton, changePwButton;
     boolean rememberLogin;
-    public static Context mContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        mContext = this;
+        FileManager.getInstance(MainActivity.sContext).initAccountFile();
 
         initObjects();
         checkRememberState();
     }
 
-    public static LoginActivity getInstance() {
-        return (LoginActivity) mContext;
+    public LoginActivity() {
+        Log.d(TAG, "LoginActivity Constructor");
     }
+
+    public static LoginActivity getInstance() {
+        if (sLoginActivity == null) {
+            synchronized (FileManager.class) {
+                sLoginActivity = new LoginActivity();
+            }
+        }
+        return sLoginActivity;
+    }
+
 
     private void initObjects() {
         idInput = (EditText) findViewById(R.id.id_input);
@@ -62,11 +75,11 @@ public class LoginActivity extends AppCompatActivity implements CompoundButton.O
     }
 
     private void checkRememberState() {
-        if (readLoginDataFromFile("remember").equals("true")) {
+        if (readLoginDataFromFile(Constants.INDEX_REMEMBER).equals("true")) {
             Log.e("jwoong.song", "onCreate, remember == true");
             autoLogin.setChecked(true);
             rememberLogin = true;
-            passwordInput.setText(readLoginDataFromFile("pw"));
+            passwordInput.setText(readLoginDataFromFile(Constants.INDEX_PASSWORD));
         } else {
             Log.e("jwoong.song", "onCreate, remember == false");
             autoLogin.setChecked(false);
@@ -77,8 +90,8 @@ public class LoginActivity extends AppCompatActivity implements CompoundButton.O
 
     private void loginCheck() {
         String id, password;
-        id = readLoginDataFromFile("id");
-        password = readLoginDataFromFile("pw");
+        id = readLoginDataFromFile(Constants.INDEX_ID);
+        password = readLoginDataFromFile(Constants.INDEX_PASSWORD);
         if (idInput.getText().toString().equals(id)
                 && passwordInput.getText().toString().equals(password)) {
             //login success
@@ -86,6 +99,7 @@ public class LoginActivity extends AppCompatActivity implements CompoundButton.O
 
             Intent intent1 = new Intent(this, MenuActivity.class);
             startActivity(intent1);
+            finish();
         } else {
             Toast.makeText(this, "Login Failed", Toast.LENGTH_LONG).show();
         }
@@ -114,29 +128,30 @@ public class LoginActivity extends AppCompatActivity implements CompoundButton.O
             case R.id.button_change_pw:
                 Intent intent = new Intent(this, ChangePasswordActivity.class);
                 startActivity(intent);
+                finish();
                 //makeFile();
                 break;
         }
     }
 
     public void editFile(String pw, String remember) {
-        String defaultPw = passwordInput.getText().toString();
+        String defaultPw = readLoginDataFromFile(Constants.INDEX_PASSWORD);
         String defaultRemember = rememberLogin + "";
         if (pw != null) defaultPw = pw;
         if (remember != null) defaultRemember = remember;
 
 
-        String filePath = LoginActivity.this.getFilesDir().getPath().toString() + "/AccountData.txt";
+        String filePath = MainActivity.sContext.getFilesDir().getPath().toString() + "/AccountData.txt";
         File file = new File(filePath);
 
         try {
             file.createNewFile();
             FileWriter wr = new FileWriter(file, false);
             PrintWriter writer = new PrintWriter(wr);
-            writer.println("id:sty1ight_admin");
-            writer.println("pw:" + defaultPw);
-            writer.println("remember:" + defaultRemember);
-            ((DropBoxActivity) DropBoxActivity.mContext).overwriteLoginData(defaultPw, defaultRemember);
+            writer.print("sty1ight_admin:");
+            writer.print(defaultPw + ":");
+            writer.println(defaultRemember);
+            //((DropBoxActivity) DropBoxActivity.mContext).overwriteLoginData(defaultPw, defaultRemember);
             writer.close();
         } catch (IOException e) {
             // TODO Auto-generated catch block
@@ -144,9 +159,10 @@ public class LoginActivity extends AppCompatActivity implements CompoundButton.O
         }
     }
 
-    public String readLoginDataFromFile(String index) {
-        String filePath = LoginActivity.this.getFilesDir().getPath().toString() + "/AccountData.txt";
+    public String readLoginDataFromFile(int index) {
+        String filePath = MainActivity.sContext.getFilesDir().getPath().toString() + "/AccountData.txt";
         File file = new File(filePath);
+        String tempData = null;
 
         //StringBuffer buffer = new StringBuffer();
         try {
@@ -155,18 +171,14 @@ public class LoginActivity extends AppCompatActivity implements CompoundButton.O
             String str = reader.readLine();
 
             while (str != null) {
-                if (str.split(":")[0].equals(index)) {
-                    return str.split(":")[1];
-                }
-                //buffer.append(str + "\n");
+                tempData = str.split(":")[index];
                 str = reader.readLine();
             }
-            //loginButton.setText(buffer.toString());
             reader.close();
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        return null;
+        return tempData;
     }
 }
