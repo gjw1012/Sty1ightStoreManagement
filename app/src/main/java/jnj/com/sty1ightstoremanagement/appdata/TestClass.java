@@ -1,21 +1,28 @@
 package jnj.com.sty1ightstoremanagement.appdata;
 
-import android.support.v7.app.AppCompatActivity;
+import android.content.Context;
 
 /**
  * Created by gjw on 2017-05-13.
  */
 
 public class TestClass {
-    private DataManager mDataManager;
+    private static volatile TestClass sTestClass = null;
 
-    TestClass() {
-        mDataManager = DataManager.getInstance();
+    public TestClass() {
+
     }
 
-    private void test() {
-        for (Marchandise m : mDataManager.getList()) {
+    public static TestClass getInstance() {
+        if (sTestClass == null) {
+            synchronized (TestClass.class) {
+                sTestClass = new TestClass();
+            }
         }
+        return sTestClass;
     }
 
+    public void test() {
+        DataManager.getInstance().getList();
+    }
 }
